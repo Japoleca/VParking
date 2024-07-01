@@ -46,21 +46,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    configForm.addEventListener('submit', (e) => {
+    configForm?.addEventListener('submit', (e) => {
         e.preventDefault();
         config.vagas = parseInt(document.getElementById('vagas').value);
         config.tarifa = parseFloat(document.getElementById('tarifa').value);
         saveConfig();
+        alert('Configurações salvas com sucesso!');
     });
 
-    entradaForm.addEventListener('submit', (e) => {
+    entradaForm?.addEventListener('submit', (e) => {
         e.preventDefault();
         const placa = document.getElementById('placa').value;
+        const tipo = document.getElementById('tipo').value;
         const horaEntrada = new Date().toLocaleTimeString();
+        const horaEntradaDate = new Date();
+
+        // Verifica se a placa já está registrada
+        const placaExistente = veiculos.some(veiculo => veiculo.placa === placa);
+        if (placaExistente) {
+            alert('A placa já está registrada!');
+            return;
+        }
+
         if (veiculos.length < config.vagas) {
-            veiculos.push({ placa, horaEntrada });
+            veiculos.push({ placa, tipo, horaEntrada, horaEntradaDate });
             saveVeiculos();
             renderVeiculos();
+            alert('Veículo registrado com sucesso!');
         } else {
             alert('Estacionamento cheio!');
         }
@@ -68,9 +80,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.registrarSaida = (index) => {
         const veiculo = veiculos[index];
-        const horaSaida = new Date().toLocaleTimeString();
-        const tempoPermanencia = (new Date().getTime() - new Date(`1970-01-01T${veiculo.horaEntrada}Z`).getTime()) / 3600000;
-        const valor = Math.ceil(tempoPermanencia) * config.tarifa;
+        const horaSaidaDate = new Date();
+        const tempoPermanencia = (horaSaidaDate - new Date(veiculo.horaEntradaDate)) / 3600000;
+        
+        const pesos = {
+            carro: 2,
+            moto: 1.5,
+        };
+        
+        const peso = pesos[veiculo.tipo];
+        const valor = Math.ceil(tempoPermanencia) * config.tarifa * peso;
+        
         alert(`Tempo de permanência: ${tempoPermanencia.toFixed(2)} horas\nValor a pagar: R$ ${valor.toFixed(2)}`);
         veiculos.splice(index, 1);
         saveVeiculos();

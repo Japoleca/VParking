@@ -2,21 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Gestão de Vagas</title>
+    <title>Veículos Estacionados</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-
         <div class="image-side">
-                <!--<h1>Gerenciamento de Estacionamento<br>Controle de entrada e saída de veículos</h1>-->
-                <img src="assets/img/undraw_automobile_repair_ywci.svg">
+            <img src="assets/img/undraw_automobile_repair_ywci.svg" alt="Automobile Repair">
         </div>
-
-        <div class="form-side-register">
-            <main>
-                <section id="veiculos">
-                    <h2>Veículos Estacionados</h2>
+        <div class="form-side">
+            <main class="main-content">
+                <section id="titulo_card">
+                    <div class="head-gestao">
+                        <h2>Veículos Estacionados</h2>
+                    </div>
+                </section>
+                <section id="veiculos" class="config-section">
                     <table>
                         <thead>
                             <tr>
@@ -30,10 +31,13 @@
                         </tbody>
                     </table>
                 </section>
+                <div class="pages-button">
+                    <a href="gestao_vagas.html" class="btn start">Gestão de Vagas</a>
+                    <a href="registro_veiculos.html" class="btn end">Registro de Veículos</a>
+                </div>
             </main>
         </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
-

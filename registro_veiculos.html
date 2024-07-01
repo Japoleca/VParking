@@ -2,28 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Gestão de Vagas</title>
+    <title>Registro de Veículos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-
         <div class="image-side">
-                <!--<h1>Gerenciamento de Estacionamento<br>Controle de entrada e saída de veículos</h1>-->
-                <img src="assets/img/undraw_automobile_repair_ywci.svg">
+            <img src="assets/img/undraw_automobile_repair_ywci.svg" alt="Automobile Repair">
         </div>
-
-        <div class="form-side-register">
-            <main>
-                <section id="registro">
-                    <h2>Registro de Veículos</h2>
-                        <form id="entrada-form">
-                            <label for="placa">Placa do Veículo:</label>
-                            <input type="text" id="placa" name="placa" placeholder="Placa" required >
-                            <button type="submit">Registrar Entrada</button>
-                        </form>
+        <div class="form-side">
+            <main class="main-content">
+                <section id="titulo_card">
+                    <div class="head-gestao">
+                        <h2>Registro de Veículos</h2>
+                    </div>
                 </section>
+                <section id="config" class="config-section">
+                    <form id="entrada-form">
+                        <label for="placa">Placa do Veículo:</label>
+                        <input type="text" id="placa" name="placa" placeholder="Placa" required>
+                        <label for="tipo">Tipo de Veículo:</label>
+                        <select id="tipo" name="tipo" required>
+                            <option value="carro">Carro</option>
+                            <option value="moto">Moto</option>
+                        </select>
+                        <button type="submit">Registrar Entrada</button>
+                    </form>
+                </section>
+                <div class="pages-button">
+                    <a href="gestao_vagas.html" class="btn start">Gestão de Vagas</a>
+                    <a href="veiculos_estacionados.html" class="btn end">Veículos Estacionados</a>
+                </div>
             </main>
         </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
