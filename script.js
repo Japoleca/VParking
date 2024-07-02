@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const configForm = document.getElementById('config-form');
     const entradaForm = document.getElementById('entrada-form');
     const veiculosTabela = document.getElementById('veiculos-tabela');
+    const vagasOcupadasElement = document.getElementById('vagas-ocupadas');
+    const vagasRestantesElement = document.getElementById('vagas-restantes');
 
     let config = {
         vagas: 0,
@@ -15,10 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (storedConfig) {
             config = JSON.parse(storedConfig);
         }
+        updateVagasDisplay();
     };
 
     const saveConfig = () => {
         localStorage.setItem('config', JSON.stringify(config));
+        updateVagasDisplay();
     };
 
     const loadVeiculos = () => {
@@ -31,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const saveVeiculos = () => {
         localStorage.setItem('veiculos', JSON.stringify(veiculos));
+        updateVagasDisplay();
     };
 
     const renderVeiculos = () => {
@@ -44,6 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             veiculosTabela.appendChild(row);
         });
+        updateVagasDisplay();
+    };
+
+    const updateVagasDisplay = () => {
+        if (vagasOcupadasElement && vagasRestantesElement) {
+            vagasOcupadasElement.textContent = veiculos.length;
+            vagasRestantesElement.textContent = config.vagas - veiculos.length;
+        }
     };
 
     configForm?.addEventListener('submit', (e) => {
@@ -81,17 +94,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.registrarSaida = (index) => {
         const veiculo = veiculos[index];
         const horaSaidaDate = new Date();
-        const tempoPermanencia = (horaSaidaDate - new Date(veiculo.horaEntradaDate)) / 3600000;
+        const tempoPermanencia = (horaSaidaDate - new Date(veiculo.horaEntradaDate) - 10000) / 3600000;
         
         const pesos = {
             carro: 2,
-            moto: 1.5,
+            moto: 1.5
         };
         
         const peso = pesos[veiculo.tipo];
         const valor = Math.ceil(tempoPermanencia) * config.tarifa * peso;
         
-        alert(`Tempo de permanência: ${tempoPermanencia.toFixed(2)} horas\nValor a pagar: R$ ${valor.toFixed(2)}`);
+        alert(`Tempo de permanência: ${Math.max(0, tempoPermanencia.toFixed(2))} horas\nValor a pagar: R$ ${Math.max(0, valor.toFixed(2))}`);
         veiculos.splice(index, 1);
         saveVeiculos();
         renderVeiculos();

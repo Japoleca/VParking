@@ -13,37 +13,39 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #dbe09c;
+    background: #D3E4CD;
+    margin: 0;
 }
 
 .container {
     width: 80%;
     height: 80vh;
     display: flex;
+    flex-direction: row;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
 }
 
-.image-side {
+.image-side, .form-side {
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.image-side {
     background-color: #BFD7EA;
     padding: 1rem;
 }
 
 .image-side img {
-    width: 31rem;
+    width: 100%;
+    max-width: 31rem;
+    height: auto;
 }
 
 .form-side {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     background-color: #fff;
+    flex-direction: column;
 }
 
 .head-gestao {
@@ -142,12 +144,19 @@ button[type="submit"]:hover {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: top;
-    margin-top: 10rem;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.veiculos-tabela-wrapper {
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
 }
 
 table {
-    width: 80%;
+    width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
@@ -169,4 +178,40 @@ td {
 
 tr:hover {
     background-color: #f1f1f1;
+}
+
+#contador_vagas {
+    text-align: center;
+    margin: 5px 0;
+}
+
+#contador_vagas h3 {
+    margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+
+    .image-side, .form-side {
+        width: 100%;
+        height: auto;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .pages-button {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
 }
